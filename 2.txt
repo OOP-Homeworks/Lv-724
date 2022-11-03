@@ -1,0 +1,147 @@
+Тернарний оператор
+===================
+//перевірка на парність 
+class Program
+    {
+        static void Main(string[] args)
+        {
+            int a;
+            Console.WriteLine("Введiть число:");
+            a = Convert.ToInt32(Console.ReadLine());
+            Console.WriteLine(a % 2 == 0 ? "Число парне" : "Число непарне");
+            Console.ReadLine();
+        }
+    }
+
+
+
+//знайти більше число з двох введених
+
+static void Main(string[] args)
+        {
+            int a, b, max;
+            Console.WriteLine("Введiть перше число:");
+            a = Convert.ToInt32(Console.ReadLine());
+            Console.WriteLine("Введiть друге число:");
+            b = Convert.ToInt32(Console.ReadLine());
+            Console.WriteLine(max = a > b ? a : b);
+            Console.ReadLine();
+        }
+
+=======================================================================================================
+Enum
+=====
+class Program
+{
+    enum Operation
+    {
+        Add = 1,  //Додавання
+        Subtract, //Віднімання
+        Multiply, //Множення
+        Divide    //Ділення
+    }
+ 
+    static void MathOp(double x, double y, Operation op)
+    {
+        double result = 0.0;
+ 
+        switch (op)
+        {
+            case Operation.Add:
+                result = x + y;
+                break;
+            case Operation.Subtract:
+                result = x - y;
+                break;
+            case Operation.Multiply:
+                result = x * y;
+                break;
+            case Operation.Divide:
+                result = x / y;
+                break;
+        }
+         Console.WriteLine("Результат обчислення: {0}", result);
+    }
+ 
+    static void Main(string[] args)
+    {
+        // Тип операції задаємо за допомогою константи Operation.Add
+        
+	MathOp(10, 5, Operation.Add);
+        
+	// Тип операції задаємо за допомогою константи Operation.Multiply
+        MathOp(11, 5, Operation.Multiply);
+             
+        Console.ReadLine();
+    }  
+}
+
+=================================================================================================================
+Struct
+//Point
+
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+
+namespace Demo2
+{
+    struct Point
+    {
+        public int X;
+        public int Y;
+        public override string ToString()
+        {
+            return string.Format("P=({0},{1})", X, Y);
+        }
+    };
+
+    class Program
+    {
+        static void Main(string[] args)
+        {
+            Point p;
+            p.X = 5;
+            p.Y = 9;
+            Console.WriteLine(p);
+            Console.ReadLine();
+        }
+    }
+}
+
+============================================
+//Book
+
+ class Program
+        {
+            static void Main(string[] args)
+            {
+                Book book;
+                book.name = "11/22/63";
+                book.author = "Стiвен Кiнг ";
+                book.year = 2012;
+
+                
+            //Ввивід інформації про книгу book на екран
+            book.Info();
+            
+            Console.ReadLine();
+            }
+        }
+
+        struct Book
+        {
+            public string name;
+            public string author;
+            public int year;
+
+            public void Info()
+            {
+                Console.WriteLine($"Книга '{name}' (автор {author}) була видана в {year} роцi");
+            }
+        }
+    }
+
+====================================================================================
