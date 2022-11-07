@@ -1,0 +1,246 @@
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+
+namespace Lesson_03_Task_01
+{
+    class Program
+    {
+        static void Main(string[] args)
+        {
+            Console.WriteLine("Enter numbers a and b,  a<b");
+            Console.Write("a=");
+            int a = Convert.ToInt32(Console.ReadLine());
+            Console.Write("b=");
+            int b = Convert.ToInt32(Console.ReadLine());
+            int k = 0;
+            for (int i = a; i<=b; i++) 
+                {
+                if (i % 3 == 0) k++;
+            }
+            Console.WriteLine("Count of numbers: "+k);
+            Console.ReadKey();
+        }
+    }
+}
+_____
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+
+namespace Lesson_03_Task_02
+{
+    class Program
+    {
+        static void Main(string[] args)
+        {
+            Console.WriteLine("Enter string:");
+            string stringLine = Console.ReadLine();
+            int k = 1;
+            foreach (var s in stringLine)  // or for (int i=1; i<str.Lenght, i+=2)
+            {
+                if (k % 2 == 0) Console.Write(s);
+                k++;
+            }
+            Console.ReadKey();
+        }
+    }
+}
+__________________________________________
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+
+namespace Lesson_03_Task_03
+{
+    class Program
+    {
+        static void Main(string[] args)
+        {
+	    double kava = 30, sik = 20, chay = 25, voda = 10;
+            Console.WriteLine("Please make your choice: (coffee/tea/juice/water)");
+            string order = Console.ReadLine();
+            switch (order)
+            {
+                case "coffee":
+                    Console.WriteLine($"The cost of {order} {kava:C}");
+                    break;
+                case "tea":
+                    Console.WriteLine(order + " cost " + chay);
+                    break;
+                case "juice":
+                    Console.WriteLine(order + " cost " + sik);
+                    break;
+                case "water":
+                    Console.WriteLine(order + " cost " + voda);
+                    break;
+            }
+            Console.ReadKey();
+        }
+    }
+}
+
+// if (Enum.IsDefined(typeof(NameOfDrinks), input))
+            {
+                Console.WriteLine($"Your drink is: {input} and the price is {(int)Enum.Parse(typeof(NameOfDrinks), input)}%");
+            }
+
+_______________________
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+
+namespace Lesson_03_Task_04
+{
+    class Program
+    {
+        static void Main(string[] args)
+        {
+            Console.WriteLine("Enter posistive numbers to the first negative:");
+            int k = 0; double sum=0, n;
+            do
+            {
+                n = Convert.ToInt32(Console.ReadLine());//-5
+                sum += n; k++;
+            } while (n > 0);
+            sum -= n; k--;
+            double result = sum / k;
+            Console.WriteLine("Average of positive numbers {0:f2}", result);
+            Console.ReadKey();
+        }
+    }
+}
+
+or
+namespace Lesson_03_Task_04
+{
+    class Program
+    {
+        static void Main(string[] args)
+        {
+            int numb = 0;
+            double sum = 0;
+            int counter = 0;
+            while (numb >= 0)
+            {
+                
+                sum = sum + numb;
+                counter = counter + 1;
+                numb = Convert.ToInt32(Console.ReadLine());
+
+            }
+            counter--;
+            double aver = sum / counter;
+            Console.WriteLine("sum " + sum);
+            Console.WriteLine("aver " + aver);
+            Console.ReadLine();
+        }
+    }
+}
+____________________
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+
+namespace Lesson_03_Task_05
+{
+    class Program
+    {
+        static void Main(string[] args)
+        {
+            Console.Write("Enter year ");
+            int year = Convert.ToInt32(Console.ReadLine());
+            bool v = false;
+            if (year % 4 == 0)
+            {
+                v = true;
+                if ((year % 100 == 0)&&(year % 400 != 0))
+                {
+                    v = false;
+                }
+            }
+            if (v)
+            {
+                Console.WriteLine("year is a leap");
+            }
+            else
+            {
+                Console.WriteLine("year is not a leap");
+            };
+            Console.ReadKey();
+        }
+    }
+}
+____
+
+
+
+________________________
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+
+namespace Lesson_03_Task_06
+{
+    class Program
+    {
+        static void Main(string[] args)
+        {
+            Console.WriteLine("enter integer number");
+            int number = Convert.ToInt32(Console.ReadLine());
+            int sum = 0;
+            while (number >= 1)   //16551 3 5
+            {
+                sum += number % 10;
+                number /= 10;
+            };
+            Console.WriteLine("sum digits of number "+sum);
+            Console.ReadKey();
+        }
+    }
+}
+___________________________
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+
+namespace Lesson_03_Task_07
+{
+    class Program
+    {
+        static void Main(string[] args)
+        {
+            Console.WriteLine("Enter number ");
+            int number = Convert.ToInt32(Console.ReadLine());
+            bool r = true;
+            while ((number >= 1)&&(r))
+            {
+                if ((number % 10) % 2 == 0) r = false;
+                number /= 10;
+            };
+            if (r)
+            {
+                Console.WriteLine(" true ");
+            }
+            else
+            {
+                Console.WriteLine("false");
+            }
+            Console.ReadKey();
+        }
+    }
+}
