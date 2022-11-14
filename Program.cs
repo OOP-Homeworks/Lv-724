@@ -1,72 +1,61 @@
 ﻿using System;
-namespace HW2_Cherniak
-{
-	internal class Program
-	{
-		static void Main(string[] args)
-		{
-			//Task 1 
-			Console.WriteLine("Please, input first number in the range from -5 to 5");
-			var firstNumber = Convert.ToDouble(Console.ReadLine());
-			Console.WriteLine("Please, input second number in the range from -5 to 5");
-			var secondNumber = Convert.ToDouble(Console.ReadLine());
-			Console.WriteLine("Please, input third number in the range from -5 to 5");
-			var thirdNumber = Convert.ToDouble(Console.ReadLine());
-			Console.WriteLine((firstNumber <= 5) && (firstNumber >= -5) ? "Your firstNumber in the range from -5 to 5" : "Error");
-			Console.ReadKey();
-			Console.WriteLine((secondNumber <= 5) && (secondNumber >= -5) ?
-				"Your secondNumber in the range from -5 to 5" : "Error");
-			Console.ReadKey();
-			Console.WriteLine((thirdNumber <= 5) && (thirdNumber >= -5) ? "Your thirdNumber in the range from -5 to 5" : "Error");
-			Console.ReadKey();
-			//Task 2
-			Console.WriteLine("Please, input three numbers");
-			var first = Convert.ToInt32(Console.ReadLine());
-			var second = Convert.ToInt32(Console.ReadLine());
-			var third = Convert.ToInt32(Console.ReadLine());
-			Console.WriteLine((first > second) && (first > third) ? "Max value is first" : 
-							  (second > first) && (second > third) ? "Max value is second" : "Max value is third");
-			Console.WriteLine((first < second) && (first < third) ? "Min value is first" :
-							  (second < first) && (second < third) ? "Min value is second" : "Min value is third");
-			Console.ReadKey();
-			Console.WriteLine("Please, input number of error");
-			var result = Convert.ToInt32(Console.ReadLine());
-			NumberOfError(result, HttpError.NotFound);
-		}
-		//Task 3
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
 
-		enum HttpError
-		{
-			BadRequest = 400,
-			Unauthorized = 401,
-			Forbidden = 403,
-			NotFound = 404
-		}
-		static void NumberOfError(int result, HttpError error)
-		{
-			switch (result)
-			{
-				case 400:
-					{
-						Console.WriteLine(HttpError.BadRequest);
-						break;
-					}
-				case 401:
-					{
-						Console.WriteLine(HttpError.Unauthorized);
-						break;
-					}
-				case 403:
-					{
-						Console.WriteLine(HttpError.Forbidden);
-						break;
-					}
-				case 404:
-					{
-						Console.WriteLine(HttpError.NotFound);
-						break;
-					}
-			}
-		}
-	}
+namespace Homework4
+{
+    internal class Program
+    {
+        static void Main(string[] args)
+        {
+            Person person = new Person();
+            person.Output();
+
+            Person person1 = new Person("Anton",2003);
+            person1.Output();
+
+            var persons = new Person[6];
+            for (int i = 2; i < 6; i++)
+            {
+                persons[0] = person;
+                persons[1] = person1;
+                persons[i] = Person.Input(i);
+            }
+            for (int i = 0; i < 6; i++)
+            {
+                persons[i].Outputs();
+            }
+            Console.WriteLine("Pleace enter this year = ");
+           int year = Convert.ToInt32(Console.ReadLine());
+            for (int i = 0; i < 6; i++)
+            {
+                persons[i].Age(year);
+                persons[i].Output();
+            }
+
+            for (int i = 0; i < persons.Length; i++)
+            {
+                if (persons[i].BirthYear < 16)
+                {
+                    persons[i].Changename("Very Young");
+                }
+            }
+            Console.WriteLine("  ");
+            for (int i = 0; i < persons.Length; i++)
+            {
+                persons[i].Output();
+            }
+
+            for (int i = 0; i < persons.Length - 1; i++)
+            {
+                if (persons[i].Name == persons[i + 1].Name)
+                {
+                    Console.WriteLine("{0} and {1} share a similar name.", persons[i], persons[i + 1]);
+                }
+            }
+            Console.ReadKey();
+        }
+    }
 }
