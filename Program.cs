@@ -1,48 +1,74 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Collections;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace CW5
+namespace Homework_06_tast_06
 {
     class Program
     {
         static void Main(string[] args)
         {
-            int cont = 0;
-           Dictionary<int,string> dic = new Dictionary<int,string>();
-            for (int i = 0; i < 7; i++)
+            List<INomer> numlist = new List<INomer>();
+        start:
+            Console.Write("Enter start numer -");
+            int start = Convert.ToInt32(Console.ReadLine());
+            Console.Write("Enter end number -");
+            int end = Convert.ToInt32(Console.ReadLine());
+            if ((start > end) || ((end - start)<10)) { throw new ApplicationException("end must beb > start more than 10"); }
+        odn:
+
+            try
             {
-                Console.Write("Enter id of person = ");
-                int id = Convert.ToInt32(Console.ReadLine());
-                Console.Write("Enter Name of person - ");
-                string name = Console.ReadLine();
-                dic.Add(id, name);
-            }
-            Console.Write("Enter the id of person that wanted - ");
-            int find = Convert.ToInt32(Console.ReadLine());
-            foreach (KeyValuePair<int, string> kvp in dic)
-            {
-                
-                if (find == kvp.Key)
+                Console.Write("Enter 1 of 10 numbers between start and end =");
+                int num = Convert.ToInt32(Console.ReadLine());
+                if ((num > end) || (start > num) || (num==start) || (num == end)) { throw new SystemException(); }
+                numlist.Add(new Number(num));
+                int a = num;
+            ds:
+                for (int i = 1; i < 10; i++)
                 {
-                    
-                    Console.WriteLine("The Name of Person whis this id is -  {0}", kvp.Value);
+                    Console.Write("Enter {0} of 10 numbers between start and end =",i+1);
+                    int num1 = Convert.ToInt32(Console.ReadLine());
+                    if ((num1 < a) || (num1 > end) || (num1 == a)) { throw new Exception(); }
+                    numlist.Add(new Number(num1));
+                    a = num1;
+
+
                 }
-                else
+                for (int i = 0; i < numlist.Count; i++)
                 {
-                    cont++;
+                    numlist[i].ToString();
                 }
             }
-            if (cont==7)
+            catch (SystemException x)
             {
-                Console.WriteLine("We haven`t person with this id:{0}",find);
+                Console.WriteLine("num must be b > start and < end ");
+                goto odn;
+
             }
 
+            catch (ApplicationException x)
+            {
+                Console.WriteLine(x.Message);
+                goto start;
 
+            }
+            catch (Exception ap)
+            {
+                Console.WriteLine("num must be biger > elier number and < end ");
+                goto odn;
 
+            }
+
+            finally
+            {
+                Console.WriteLine("The End");
+                Console.WriteLine("________");
+            }
         }
+       
+
     }
 }
