@@ -1,130 +1,136 @@
-
 ﻿using System;
+using System.Collections.Generic;
 
-namespace Sytnyk_Illia_s_Homework_4
+namespace Sytnyk_Illia_s_Homework_5
 {
-    class Person
+    interface IDeveloper
     {
-        private string name;
-        private DateTime birthYear;
-
-        public Person() { }
-        
-        public Person(string name, DateTime birthYear)
-        {
-            this.name = name;
-            this.birthYear = birthYear;
-        }
-
-        public string Name
-        {
-            get { return name; }
-            set { name = value; }
-        }
-
-        public DateTime BirthYear
-        {
-            get { return birthYear; }
-            set { birthYear = value; }
-        }
-
-        public int Age()
-        {
-            var today = DateTime.Today;
-            int age = today.Year - birthYear.Year;
-            return age;
-        }
-
-        public void Input()
-        {
-            Console.WriteLine("Enter the name of a person: ");
-            name = Console.ReadLine();
-            Console.WriteLine("Enter the birthday year of a person: ");
-            birthYear = Convert.ToDateTime(Console.ReadLine());
-            Console.WriteLine("------------------------------");
-        }
-
-        public string ChangeName(string new_name)
-        {
-            name = new_name;
-            return name;
-        }
-
-        public override string ToString()
-        {
-            return $"Person name is {name} and birthday year is {birthYear.Year}";
-        }
-
-        public void Output()
-        {
-            Console.WriteLine(ToString());
-        }
-
-        public static bool operator == (Person first, Person second)
-        {
-            return first.name == second.name;
-        }
-
-        public static bool operator !=(Person first, Person second)
-        {
-            return first.name != second.name;
-        }
-    
-    
+        string Tool { get; set; }
+        void Create();
+        void Destroy();
     }
-}
-=======
 
-﻿using System;
+    class Programmer : IDeveloper, IComparable
+    {
+        private string language;
+        public Programmer(string language)
+        {
+            this.language = language;
+        }
+        public string Tool
+        {
+            get { return language; }
+            set { language = value; }
+        }
+        public void Create()
+        {
+            Console.WriteLine($"Create Programmer with code on {language} language");
+        }
+        public void Destroy()
+        {
+            Console.WriteLine($"Destroy Programmer with code on {language} language");
+        }
+        public int CompareTo(object o)
+        {
+            Programmer p = o as Programmer;
+            Builder b = o as Builder;
+            if (p != null)
+                return this.Tool.CompareTo(p.Tool);
+            else if (b != null)
+                return this.Tool.CompareTo(b.Tool);
+            else return 0;
+        }
+    }
 
-namespace Lesson4
-{
-    class Program
+    class Builder : IDeveloper, IComparable
+    {
+        private string tool;
+        public Builder(string tool)
+        {
+            this.tool = tool;
+        }
+        public string Tool
+        {
+            get { return tool; }
+            set { tool = value; }
+        }
+        public void Create()
+        {
+            Console.WriteLine($"Create Builder with {tool} tool"); ;
+        }
+        public void Destroy()
+        {
+            Console.WriteLine($"Destroy Builder with {tool} tool");
+        }
+
+        public int CompareTo(object o)
+        {
+            Builder b = o as Builder;
+            Programmer p = o as Programmer;
+            if (b != null)
+                return this.Tool.CompareTo(b.Tool);
+            else if (p != null)
+                return this.Tool.CompareTo(p.Tool);
+            else return 0;
+        }
+    }
+    internal class Program
     {
         static void Main(string[] args)
         {
-            Person person = new Person();
-            person.Output();
+            //Task 1
+            List<IDeveloper> dev_list = new List<IDeveloper>();
+            dev_list.Add(new Programmer("C#"));
+            dev_list.Add(new Programmer("C++"));
+            dev_list.Add(new Programmer("C"));
+            dev_list.Add(new Programmer("Python"));
+            dev_list.Add(new Builder("Laptop"));
+            dev_list.Add(new Builder("Personal Computer"));
+            dev_list.Add(new Builder("MacBook"));
 
-            Person person2 = new Person("fjkvfdv", 2002);
-            person2.Output();
-            Person[] persons = new Person[6];
-            persons[0] = person;
-            persons[1] = person2;
-            for (int i = 2; i < persons.Length; i++)
+            for (int i = 0; i < dev_list.Count; i++)
             {
-                persons[i] = Person.Input(i);
+                dev_list[i].Create();
+                dev_list[i].Destroy();
             }
-            for (int i = 0; i < persons.Length; i++)
+
+            dev_list.Sort();
+            Console.WriteLine("\nSorted:\n");
+            for (int i = 0; i < dev_list.Count; i++)
             {
-                persons[i].Age();
-                persons[i].Output();
+                Console.WriteLine(dev_list[i].Tool);
             }
-            string newName = "Very Young";
-            for (int i = 0; i < persons.Length; i++)
+            Console.ReadKey();
+
+
+            //Task 2
+            Console.WriteLine("------------------------------");
+            Console.WriteLine("\nTask 2:\n");
+
+            Dictionary<uint, string> contacts_list = new Dictionary<uint, string>();
+            contacts_list.Add(1, "Illia");
+            contacts_list.Add(2, "Yulia");
+            contacts_list.Add(3, "Denis");
+            contacts_list.Add(4, "Eva");
+            contacts_list.Add(5, "Petro");
+            contacts_list.Add(6, "Sofia");
+            contacts_list.Add(7, "Mykyta");
+
+            Console.Write("Enter the person`s ID to find his/her name in contacts list: ");
+            uint cor_name = Convert.ToUInt32(Console.ReadLine());
+            bool find = false;
+
+            foreach (KeyValuePair<uint, string> kvp in contacts_list)
             {
-                if (persons[i].age < 16)
+                if (cor_name == kvp.Key)
                 {
-                    persons[i].Name = newName;
-                    Console.WriteLine($"people number {i + 1} has new name - {newName}");
+                    Console.WriteLine($"\nPerson`s ID is {kvp.Key} and name is {kvp.Value}");
+                    find = true;
                 }
             }
-            for (int i = 0; i < persons.Length; i++)
-            {
-                for (int j = i + 1; j < persons.Length; j++)
-                {
-                    if (persons[i] == persons[j])
-                    {
-                        Console.WriteLine($"people number {i + 1} and {j + 1}  have the same name");
-                    }
-                }
-            }
-            for (int i = 0; i < persons.Length; i++)
-            {
-                Console.WriteLine(persons[i].ToString());
-            }
+
+            if (find == false)
+                Console.WriteLine("Person isn`t found");
         }
     }
 }
-
-
