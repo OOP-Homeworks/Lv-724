@@ -1,130 +1,95 @@
-
 ﻿using System;
+using System.Reflection.Emit;
+using System.Threading;
 
-namespace Sytnyk_Illia_s_Homework_4
+namespace DudnykHW5
 {
-    class Person
+    internal class Program
     {
-        private string name;
-        private DateTime birthYear;
-
-        public Person() { }
-        
-        public Person(string name, DateTime birthYear)
+        static void Main()
         {
-            this.name = name;
-            this.birthYear = birthYear;
-        }
+            // Task 1, 2
+            int firstVal, secondVal;
 
-        public string Name
-        {
-            get { return name; }
-            set { name = value; }
-        }
-
-        public DateTime BirthYear
-        {
-            get { return birthYear; }
-            set { birthYear = value; }
-        }
-
-        public int Age()
-        {
-            var today = DateTime.Today;
-            int age = today.Year - birthYear.Year;
-            return age;
-        }
-
-        public void Input()
-        {
-            Console.WriteLine("Enter the name of a person: ");
-            name = Console.ReadLine();
-            Console.WriteLine("Enter the birthday year of a person: ");
-            birthYear = Convert.ToDateTime(Console.ReadLine());
-            Console.WriteLine("------------------------------");
-        }
-
-        public string ChangeName(string new_name)
-        {
-            name = new_name;
-            return name;
-        }
-
-        public override string ToString()
-        {
-            return $"Person name is {name} and birthday year is {birthYear.Year}";
-        }
-
-        public void Output()
-        {
-            Console.WriteLine(ToString());
-        }
-
-        public static bool operator == (Person first, Person second)
-        {
-            return first.name == second.name;
-        }
-
-        public static bool operator !=(Person first, Person second)
-        {
-            return first.name != second.name;
-        }
-    
-    
-    }
-}
-=======
-
-﻿using System;
-
-namespace Lesson4
-{
-    class Program
-    {
-        static void Main(string[] args)
-        {
-            Person person = new Person();
-            person.Output();
-
-            Person person2 = new Person("fjkvfdv", 2002);
-            person2.Output();
-            Person[] persons = new Person[6];
-            persons[0] = person;
-            persons[1] = person2;
-            for (int i = 2; i < persons.Length; i++)
-            {
-                persons[i] = Person.Input(i);
+            Begining:
+            try 
+            { 
+                Console.Write("Enter first number: ");
+                firstVal = Convert.ToInt32(Console.ReadLine());
+                Console.Write("Enter second number: ");
+                secondVal = Convert.ToInt32(Console.ReadLine());
+                if (secondVal == 0) 
+                    throw new DivideByZeroException();
             }
-            for (int i = 0; i < persons.Length; i++)
+            catch (DivideByZeroException ex)
             {
-                persons[i].Age();
-                persons[i].Output();
+                Console.WriteLine(ex.Message);
+                goto Begining;
             }
-            string newName = "Very Young";
-            for (int i = 0; i < persons.Length; i++)
+            catch (FormatException ex)
             {
-                if (persons[i].age < 16)
+                Console.WriteLine(ex.Message);
+                goto Begining;
+            }
+
+
+            Console.WriteLine(Div(firstVal, secondVal));
+
+
+        // Task 3
+            label2: 
+            int start, end;
+            Console.Write("Enter start number: ");
+            start = Convert.ToInt32(Console.ReadLine());
+            Console.Write("Enter end number: ");
+            end = Convert.ToInt32(Console.ReadLine());
+
+            try
+            {
+                int[] array = ReadNumber(start, end);
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine(ex.Message);
+                goto label2;
+            }
+
+            Console.WriteLine("All good");
+          
+        }
+
+        static double Div(int firstVal, int secondVal)
+        {
+            return (double) firstVal / secondVal;
+        }
+
+        static int[] ReadNumber (int start, int end)
+        {
+            int arrSize = end - start;
+            if (arrSize < 10)
+                throw new Exception ("There is no room for 10 integer numbers to be in range");
+
+            int[] array = new int [arrSize];
+
+            for (int i = 0; i < arrSize; i++)
+            {                
+                Console.Write($"Enter the {i} integer: ");
+                array[i] = Convert.ToInt32(Console.ReadLine());
+
+                if (array[i] < start || array[i] > end)
                 {
-                    persons[i].Name = newName;
-                    Console.WriteLine($"people number {i + 1} has new name - {newName}");
+                    throw new Exception("Out of bounds, try again");
                 }
-            }
-            for (int i = 0; i < persons.Length; i++)
-            {
-                for (int j = i + 1; j < persons.Length; j++)
+
+                if ((i > 0) && (array[i] < array[i - 1]))
                 {
-                    if (persons[i] == persons[j])
-                    {
-                        Console.WriteLine($"people number {i + 1} and {j + 1}  have the same name");
-                    }
+                    throw new Exception("This number is smaller than previous, must be bigger");
                 }
+
             }
-            for (int i = 0; i < persons.Length; i++)
-            {
-                Console.WriteLine(persons[i].ToString());
-            }
+
+            return array;
+            
         }
     }
 }
-
-
