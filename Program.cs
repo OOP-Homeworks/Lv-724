@@ -1,211 +1,94 @@
-
 ﻿using System;
-using System.Collections.Generic;
 
-namespace Homework8
+namespace HM._6._3.Dima
 {
     class Program
     {
-        static void Main()
+        static void Main(string[] args)
         {
-
-            string userInput;
-            List<Shape> shapes = new List<Shape>();
-        a:
             try
             {
-                do
+                Console.WriteLine("Enter the 10 numbers");
+                Console.Write("the start=");
+                int start = Convert.ToInt32(Console.ReadLine());
+                Console.Write("number1=");
+                int number1 = Convert.ToInt32(Console.ReadLine());
+                Console.Write("number2=");
+                if (number1 < start)
                 {
-                    Console.WriteLine("==================================");
-                    Console.WriteLine("To add circle, type in \"circle\"");
-                    Console.WriteLine("To add squere, type in \"squere\"");
-                    Console.WriteLine("Type in sort to sort the list");
-                    Console.WriteLine("Type in quit to end program");
-                    Console.WriteLine("Type display, to display all shapes");
-                    Console.WriteLine("==================================\n");
-                    userInput = Console.ReadLine().ToLower();
-
-                    switch (userInput)
-                    {
-                        case "circle":
-                            Circle(ref shapes);
-                            break;
-
-                        case "squere":
-                            Square(ref shapes);
-                            break;
-
-                        case "sort":
-                            shapes.Sort();
-                            break;
-
-                        case "display":
-                            Display(ref shapes);
-                            break;
-
-                        case "quit":
-                            Console.WriteLine("Bye!");
-                            break;
-
-                        default:
-                            Console.WriteLine("No such figure");
-                            break;
-                    }
+                    throw new Exception("number1 must be > start");
                 }
-                while (userInput != "quit");
+                int number2 = Convert.ToInt32(Console.ReadLine());
+                if (number1 > number2)
+                {
+                    throw new Exception("number1 must be < number2");
+                }
+                Console.Write("number3=");
+                int number3 = Convert.ToInt32(Console.ReadLine());
+                if (number2 > number3)
+                {
+                    throw new Exception("number2 must be < number3");
+                }
+                Console.Write("number4=");
+                int number4 = Convert.ToInt32(Console.ReadLine());
+                if (number3 > number4)
+                {
+                    throw new Exception("number3 must be < number4");
+                }
+                Console.Write("number5=");
+                int number5 = Convert.ToInt32(Console.ReadLine());
+                if (number4 > number5)
+                {
+                    throw new Exception("number4 must be < number5");
+                }
+                Console.Write("number6=");
+                int number6 = Convert.ToInt32(Console.ReadLine());
+                if (number5 > number6)
+                {
+                    throw new Exception("number5 must be < number6");
+                }
+                Console.Write("number7=");
+                int number7 = Convert.ToInt32(Console.ReadLine());
+                if (number6 > number7)
+                {
+                    throw new Exception("number6 must be < number7");
+                }
+                Console.Write("number8=");
+                int number8 = Convert.ToInt32(Console.ReadLine());
+                if (number7 > number8)
+                {
+                    throw new Exception("number7 must be < number8");
+                }
+                Console.Write("number9=");
+                int number9 = Convert.ToInt32(Console.ReadLine());
+                if (number8 > number9)
+                {
+                    throw new Exception("number8 must be < number9");
+                }
+                Console.Write("the end=");
+                int end = Convert.ToInt32(Console.ReadLine());
+                Console.Write("number10=");
+                int number10 = Convert.ToInt32(Console.ReadLine());
+                if (number9 > number10)
+                {
+                    throw new Exception("number9 must be < number10");
+                }
+                if (number10 > end)
+                {
+                    throw new Exception("number10 must be < end");
+                }
             }
             catch (Exception ex)
             {
                 Console.WriteLine(ex.Message);
-                goto a;
-
             }
-            
-            
         }
-
-        // Helper functions
-        static void Circle(ref List<Shape> shapes)
+        public static int ReadNumber(int start, int end)
         {
-            Console.WriteLine("Enter name and radius seperated by space: ");
-            string[] temp = Console.ReadLine().Split(' ');
-            string name = temp[0];
-            decimal radius = Convert.ToDecimal(temp[1]);
-            shapes.Add(new Circle(name, radius));
-        }
+            return start;
+            return end;
 
-        static void Square(ref List<Shape> shapes)
-        {
-            Console.WriteLine("Enter name and side length seperated by space: ");
-            string[] temp = Console.ReadLine().Split(' ');
-            string name = temp[0];
-            decimal side = Convert.ToDecimal(temp[1]);
-            shapes.Add(new Square(name, side));
-        }
-
-        static void Display(ref List<Shape> shapes)
-        {
-            if (shapes.Count > 0)
-            {
-                foreach (var shape in shapes)
-                    Console.WriteLine(shape);
-            }
-            else
-                Console.WriteLine("List is empty");
         }
     }
 }
-
-
-            string devPath = @"/Users/aleksandr/Desktop/SoftServe/28.12.22/Polymorphism/Devs.txt";
-            List<Person> people = new List<Person>();
-
-            StreamReader sr = new StreamReader(devPath);
-            while (!sr.EndOfStream)
-            {
-                string tempName;
-                int tempSalary;
-                string tempLevel;
-
-                tempName = sr.ReadLine();
-                tempSalary = Convert.ToInt32(sr.ReadLine());
-                tempLevel = sr.ReadLine();
-
-                people.Add(new Developer(tempName, tempSalary, tempLevel));
-            }
-
-            sr.Close();
-
-            people.Add(new Teacher("Zavushchak Iryna", 5000, "C# and OOP"));
-            people.Add(new Teacher("Alibaba", 300, "Biology"));
-            people.Add(new Teacher("Enstein Albert", 10000, "Physics"));
-
-            people.Sort();
-            DisplayPersons();
-
-
-            List<Staff> employees = new List<Staff>();
-
-            foreach (Staff employee in people)
-            {
-                employees.Add(employee);
-            }
-
-            DisplayStaff();
-            employees.Sort();
-            DisplayStaff();
-
-            Console.WriteLine("Enter persons name to find (don't forget to prefix name with a \"Teacher\" if a person is a teacher): ");
-            string searchedName = Console.ReadLine();
-
-            bool flag = false;
-            foreach(var person in employees)
-            {
-                if (person.Name == searchedName)
-                {
-                    Console.WriteLine("Ther person you've looked for: ");
-                    person.Display();
-                    flag = true;
-                    break;
-                }
-            }
-
-            if (!flag)
-                Console.WriteLine("Person not found");
-
-            string staffPath = @"/Users/aleksandr/Desktop/SoftServe/28.12.22/Polymorphism/Staff.txt";
-            StreamWriter sw = new StreamWriter(staffPath);
-
-            foreach (var worker in employees)
-            {
-                Developer p = worker as Developer;
-                Teacher t = worker as Teacher;
-                if (p != null)
-                {
-                    sw.WriteLine(p.Name);
-                    sw.WriteLine("Salary: {0:C}", p.Salary);
-                    sw.WriteLine($"Level: {p.Level}");
-                    sw.WriteLine("--------------");
-                }
-                if (t!= null)
-                {
-                    sw.WriteLine(t.Name);
-                    sw.WriteLine("Salary: {0:C}", t.Salary);
-                    sw.WriteLine($"Subject: {t.Subject}");
-                    sw.WriteLine("--------------");
-                }
-            }
-            sw.Close();
-
-
-
-            Console.ReadKey();
-
-
-            // Functions
-            void DisplayPersons()
-            {
-                foreach (var man in people)
-                {
-                    man.Display();
-                    Console.WriteLine();
-                }
-                Console.WriteLine("===================");
-            }
-
-            void DisplayStaff()
-            {
-                foreach (var man in employees)
-                {
-                    man.Display();
-                    Console.WriteLine();
-                }
-                Console.WriteLine("===================");
-            }
-        }
-        
-    }
-}
-
-
-
+// Якщо маєте можливість, то скиньте, яким б мав бути правильний код до цього завдання
