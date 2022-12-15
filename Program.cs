@@ -1,46 +1,36 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.IO;
 
-
-namespace _4HW_Cherniak
+namespace HW6_Cherniak_Part2
 {
-	class Program
+	internal class Program
 	{
 		static void Main(string[] args)
 		{
-			var persons = new Person[6];
-			for (int i = 0; i < persons.Length; i++)
+			try
 			{
-				persons[i] = Person.Input(i);
-			}
-			for(int i = 0; i < persons.Length; i++)
-			{
-				var age = persons[i].Age();
-				Console.WriteLine($"{persons[i].Name} is {age} years old");	
-			}
-			for (int i = 0; i < persons.Length; i++)
-			{
-				int age = persons[i].Age();
-				persons[i].ChangeName(age);
-			}
-			for (int i = 0; i < persons.Length; i++)
-			{
-				persons[i].Output();
-			}
-			for (int i = 0; i < persons.Length; i++)
-			{
-				for	(int j = i + 1; j < persons.Length; j++)
+				Console.WriteLine("Input two double numbers");
+				Console.Write("First number : ");
+				double firstNumber = Convert.ToDouble(Console.ReadLine());
+				Console.Write("Second number : ");
+				double secondNumber = Convert.ToDouble(Console.ReadLine());
+				if (firstNumber > secondNumber)
 				{
-					if (persons[i] == persons[j])
-					{
-						Console.WriteLine($"{persons[i].Name} and {persons[j].Name} are equals");
-					}
+					throw new Exception("Second number must be bigger than first number");
 				}
+				if (secondNumber == 0)
+				{
+					throw new DivideByZeroException();
+				}
+				Console.WriteLine("{0} / {1} = {2}", secondNumber, firstNumber, secondNumber / firstNumber);
 			}
-			Console.ReadKey();
+			catch (FormatException exeption)
+			{
+				Console.WriteLine(exeption.Message);
+			}
+			catch (Exception ex)
+			{
+				Console.WriteLine(ex.Message);
+			}
 		}
 	}
 }
-
-   
