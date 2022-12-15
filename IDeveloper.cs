@@ -1,13 +1,18 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Threading.Tasks;
+using System.Text;
 
-namespace Homework5
+namespace _5HW_Cherniak
 {
-    public interface IDeveloper : IComparable<IDeveloper>
-    {
-        public string Tool { get; set; }
-        public string Create();
-        public string Destroy();
-    }
+	internal interface IDeveloper : IComparable<IDeveloper>
+	{
+		void Create();
+		void Destroy();
+
+		public string Tool
+		{
+			get;
+			set;
+		}
+	}
 }

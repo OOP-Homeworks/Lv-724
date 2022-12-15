@@ -1,46 +1,62 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.IO;
 
-
-namespace _4HW_Cherniak
+namespace _5HW_Cherniak
 {
-	class Program
+	internal class Program
 	{
 		static void Main(string[] args)
 		{
-			var persons = new Person[6];
-			for (int i = 0; i < persons.Length; i++)
+			Console.WriteLine("Not sorted list : ");
+			List<IDeveloper> devList = new List<IDeveloper>();
+			devList.Add(new Programmer("Stas", "C#"));
+			devList.Add(new Builder("Slavik", "Java"));
+			devList.Add(new Programmer("Anna", "C++"));
+			devList.Add(new Builder("Messi", "C#"));
+			devList.Add(new Programmer("Nastya", "C#"));
+			devList.Add(new Builder("Ihor", "JS"));
+
+			foreach (IDeveloper dev in devList)
 			{
-				persons[i] = Person.Input(i);
+				dev.Create();
+				dev.Destroy();
 			}
-			for(int i = 0; i < persons.Length; i++)
+			Console.WriteLine("");
+			Console.WriteLine("Sorted list : ");
+
+			devList.Sort();
+			foreach (IDeveloper dev in devList)
 			{
-				var age = persons[i].Age();
-				Console.WriteLine($"{persons[i].Name} is {age} years old");	
+				dev.Create();
+				dev.Destroy();
 			}
-			for (int i = 0; i < persons.Length; i++)
+			Console.WriteLine("");
+
+			Dictionary<uint, string> values = new Dictionary<uint, string>();
+			Console.WriteLine("Please, input 7 values and IDs");
+			for (int i = 0; i < 7; i++)
 			{
-				int age = persons[i].Age();
-				persons[i].ChangeName(age);
+				Console.Write("Name : ");
+				string name = Console.ReadLine();
+				Console.Write("ID : ");
+				uint ID = uint.Parse(Console.ReadLine());
+				values.Add(ID, name);
 			}
-			for (int i = 0; i < persons.Length; i++)
+			Console.WriteLine("Please, input ID for the find name : ");
+			uint id = uint.Parse(Console.ReadLine());
+			bool find = true;
+			foreach (KeyValuePair<uint, string> keyValue in values)
 			{
-				persons[i].Output();
-			}
-			for (int i = 0; i < persons.Length; i++)
-			{
-				for	(int j = i + 1; j < persons.Length; j++)
+				if (keyValue.Key == id)
 				{
-					if (persons[i] == persons[j])
-					{
-						Console.WriteLine($"{persons[i].Name} and {persons[j].Name} are equals");
-					}
+					Console.WriteLine($"ID = {keyValue.Key} equals {keyValue.Value}");
+					find = true;
 				}
 			}
-			Console.ReadKey();
+			if (!find)
+			{
+				Console.WriteLine("Mistake");
+			}
 		}
 	}
 }
-
-   
