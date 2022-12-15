@@ -1,34 +1,24 @@
-﻿using System;
-namespace Homework8
+﻿namespace Homework_8
 {
     public class Square : Shape
     {
-   
-        private readonly decimal perimeter;
+        private int _side;
 
-        public decimal GetArea { get { return area; } }
-
-        public Square(string name, decimal side) : base(name)
+        public Square(string name, int side) : base(name)
         {
-            base.area = Area(side);
-            perimeter = Perimeter(side);
+            _side = side;
         }
 
-        public override decimal Area(decimal side)
+        public override void Area()
         {
-            return side * side;
+            base.Area1 = _side * _side;
+            Console.WriteLine($"Area of square is : {base.Area1}");
         }
 
-        public override decimal Perimeter(decimal side)
+        public override void Perimeter()
         {
-            return side * 4;
+            base.Perimeter1 = 4 * _side;
+            Console.WriteLine($"Perimeter of square is : {base.Perimeter1}");
         }
-
-        public override string ToString()
-        {
-            return base.ToString() + $"\nPerimeter: {perimeter}";
-        }
-
     }
 }
-
