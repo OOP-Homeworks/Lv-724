@@ -1,34 +1,24 @@
-﻿using System;
-using System.Reflection.Metadata;
-
-namespace Homework8
+﻿namespace Homework_8
 {
-	public class Circle : Shape
-	{
-        private readonly decimal length;
+    public class Circle : Shape
+    {
+        private int _radius;
 
-        public decimal GetArea { get { return area; } }
-
-        public Circle(string name, decimal radius) : base(name)
-		{
-            base.area = Area(radius);
-            length = Perimeter(radius);
-		}
-
-		public override decimal Area(decimal radius)
+        public Circle(string name, int radius) : base(name)
         {
-			return (decimal)Math.PI * radius * radius;
+            _radius = radius;
         }
 
-        public override decimal Perimeter(decimal radius)
+        public override void Area()
         {
-            return 2 * (decimal) Math.PI * radius;
+            base.Area1 = Math.PI * _radius * _radius;
+            Console.WriteLine($"Area of circle is: {base.Area1}");
         }
 
-        public override string ToString()
+        public override void Perimeter()
         {
-            return base.ToString() + $"\nLength: {length}";
+            base.Perimeter1 = (decimal)(2 * Math.PI * _radius);
+            Console.WriteLine($"Perimeter of circle is : {base.Perimeter1}");
         }
     }
 }
-
