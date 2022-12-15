@@ -1,41 +1,23 @@
-﻿using System;
-namespace Homework8
+﻿using System.Collections.Generic;
+
+namespace Homework_8
 {
-    public abstract class Shape : IComparable
+    public abstract class Shape 
     {
-        string name;
-        protected decimal area;
-        
-        public string Name { get { return this.name; } set { this.name = value; } }
+        private string _name;
+        public string Name { get { return _name; } }
 
         public Shape(string name)
         {
-            this.name = name;
+            _name = name;
         }
 
-        public abstract decimal Perimeter(decimal side);
-        public abstract decimal Area(decimal side);
+        public abstract void Area();
+        public abstract void Perimeter();
 
-        public override string ToString()
-        {
-            return $"Shape: {name}\nArea: {area}";
-        }
+        public decimal Perimeter1 { get; set; }
+        public double Area1 { get; set; }
 
-        public int CompareTo(object obj)
-        {
-            if (obj != null)
-            {
-                Shape c = obj as Shape;
-                if (c != null)
-                {
-                    return this.area.CompareTo(c.area);
-                }
-                else
-                    throw new ArgumentException("Not a Shape");
-            }
-            else
-                return 1;
-        }
     }
 }
 
