@@ -2,45 +2,59 @@
 using System.Collections.Generic;
 using System.IO;
 
-
-namespace _4HW_Cherniak
+namespace HW7_Cherniak
 {
-	class Program
+	internal class Program
 	{
 		static void Main(string[] args)
 		{
-			var persons = new Person[6];
-			for (int i = 0; i < persons.Length; i++)
+			var way = @"C:\Users\Настася\Desktop\SoftServe Homework\phones.txt"; 
+			var phoneBook = new Dictionary<string, string>();
+			var sr = new StreamReader(way);
+
+			while (!sr.EndOfStream)
 			{
-				persons[i] = Person.Input(i);
+				string name = sr.ReadLine();
+				string telephone = sr.ReadLine();
+				phoneBook.Add(name, verify(telephone));
 			}
-			for(int i = 0; i < persons.Length; i++)
+			Console.WriteLine("Input the contact, which do you want to call : ");
+			string contact = Console.ReadLine();
+
+			try
 			{
-				var age = persons[i].Age();
-				Console.WriteLine($"{persons[i].Name} is {age} years old");	
+				Console.WriteLine("Calling {0}", phoneBook[contact]);
 			}
-			for (int i = 0; i < persons.Length; i++)
+			catch (Exception ex)
 			{
-				int age = persons[i].Age();
-				persons[i].ChangeName(age);
+				Console.WriteLine(ex.Message);
 			}
-			for (int i = 0; i < persons.Length; i++)
+			finally
 			{
-				persons[i].Output();
+				sr.Close();
 			}
-			for (int i = 0; i < persons.Length; i++)
+
+			var sw = new StreamWriter(@"C:\Users\Настася\Desktop\SoftServe Homework\phones.txt");
+
+			foreach (var couple in phoneBook)
 			{
-				for	(int j = i + 1; j < persons.Length; j++)
-				{
-					if (persons[i] == persons[j])
-					{
-						Console.WriteLine($"{persons[i].Name} and {persons[j].Name} are equals");
-					}
-				}
+				sw.WriteLine($"{couple.Key}, {couple.Value}");
 			}
+			sr.Close();
+			sw.Close();
 			Console.ReadKey();
+		}
+
+		static string verify(string phone)
+		{
+			if (phone[0] == '3')
+				phone = "+" + phone;
+			if (phone[0] == '8')
+				phone = "+3" + phone;
+			if (phone[0] == '0')
+				phone = "+38" + phone;
+			return phone;
 		}
 	}
 }
 
-   
