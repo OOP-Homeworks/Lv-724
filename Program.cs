@@ -1,46 +1,28 @@
-﻿using System;
-using System.Collections.Generic;
-using System.IO;
+﻿using Lesson_7.BLL;
 
-
-namespace _4HW_Cherniak
+namespace Lesson_7_Homework.CLI
 {
-	class Program
-	{
-		static void Main(string[] args)
-		{
-			var persons = new Person[6];
-			for (int i = 0; i < persons.Length; i++)
-			{
-				persons[i] = Person.Input(i);
-			}
-			for(int i = 0; i < persons.Length; i++)
-			{
-				var age = persons[i].Age();
-				Console.WriteLine($"{persons[i].Name} is {age} years old");	
-			}
-			for (int i = 0; i < persons.Length; i++)
-			{
-				int age = persons[i].Age();
-				persons[i].ChangeName(age);
-			}
-			for (int i = 0; i < persons.Length; i++)
-			{
-				persons[i].Output();
-			}
-			for (int i = 0; i < persons.Length; i++)
-			{
-				for	(int j = i + 1; j < persons.Length; j++)
-				{
-					if (persons[i] == persons[j])
-					{
-						Console.WriteLine($"{persons[i].Name} and {persons[j].Name} are equals");
-					}
-				}
-			}
-			Console.ReadKey();
-		}
-	}
-}
+    internal class Program
+    {
+        static async Task Main(string[] args)
+        {
+            const string phoneBookLocation = @"C:\Users\mlesy\temp\Lv-724\Lesia_Maiatsaka\Lesson_7\Lesson_7_Homework.CLI\Phones.txt";
+            const string copyPath = @"C:\Users\mlesy\temp\Lv-724\Lesia_Maiatsaka\Lesson_7\Lesson_7_Homework.CLI\Phones2.txt";
 
-   
+            var phoneBook = new TextPhoneBook(new StreamReader(phoneBookLocation), new StreamWriter(copyPath));
+            phoneBook.CreatePhoneBookEntries(await phoneBook.ReadFromPhoneBookAsync());
+            await phoneBook.CopyPhoneBookAsynk();
+
+            Console.WriteLine("name: ");
+            var userInput = Console.ReadLine();
+
+            foreach (var item in phoneBook.Entries.Where(e => e.Key.Contains(userInput, StringComparison.OrdinalIgnoreCase)))
+            {
+                Console.WriteLine($"{item.Key} has number +3{item.Value}");
+            }
+
+            Console.ReadKey();
+        }
+        
+    }
+}
