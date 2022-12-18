@@ -1,107 +1,78 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-namespace Homework8
+using System.IO;
+
+namespace Marichka2003_Homework7
 {
     class Program
     {
         static void Main(string[] args)
         {
+            Dictionary<string, string> PhoneBook = new Dictionary<string, string>();
+            Dictionary<string, string> NewPhoneBook = new Dictionary<string, string>();
 
-
-            List<Shape> shapes = new List<Shape>();
-
-            bool ifTrue = true;
-
-
-            for (int i = 0; i < 2; i++)
+            string[] PhoneNumbers;
+            using (StreamReader r = new StreamReader("phones.txt"))
             {
-            start:
-                Console.Write("Enter the name of shapes (circle or square): ");
-                string nameOfShapes = Console.ReadLine();
-                if (nameOfShapes == "circle")
+                string line;
+                while ((line = r.ReadLine()) != null)
                 {
-                startR:
-                    try
-                    {
-                        Console.Write("Enter the radius: ");
-                        double radiusCircle = Convert.ToDouble(Console.ReadLine());
-                        if (radiusCircle <= 0)
-                        {
-                            goto startR;
-                        }
-
-                        shapes.Add(new Circle("circle", radiusCircle));
-
-                        ifTrue = false;
-                    }
-                    catch
-                    {
-                        Console.WriteLine("Invalid number!");
-                        goto startR;
-                    }
-
+                    PhoneNumbers = line.Split(' ');
+                    PhoneBook.Add(PhoneNumbers[0], PhoneNumbers[1]);
+                    NewPhoneBook.Add(PhoneNumbers[0], PhoneNumbers[1]);
                 }
-                if (nameOfShapes == "square")
-                {
-                startS:
-                    try
-                    {
-                        Console.Write("Enter the side: ");
-                        double sideSquare = Convert.ToDouble(Console.ReadLine());
-                        if (sideSquare <= 0)
-                        {
-                            goto startS;
-                        }
 
-                        shapes.Add(new Square("square", sideSquare));
-                        ifTrue = false;
-                    }
-                    catch
-                    {
-                        Console.WriteLine("Invalid number!");
-                        goto startS;
-                    }
-
-                }
-                if (ifTrue)
-                {
-                    Console.WriteLine("There isn't such shapes!");
-                    goto start;
-                }
+                r.Close();
             }
 
-            double buff=0;
-
-            for (int i = 0; i < shapes.Count; i++)
+            using (StreamWriter w = new StreamWriter("Phone.txt"))
             {
-                shapes[i].Print();
-            }
-            Console.WriteLine("------------");
-            for (int i = 1; i < shapes.Count; i++)
-            {
-
-                if (shapes[i].Perimeter() > shapes[i - 1].Perimeter())
+                foreach (var item in PhoneBook)
                 {
-                    buff = shapes[i].Perimeter();
-
-
+                    w.Write($"{item.Value} \n");
                 }
-                else
-                {
-                    buff = shapes[0].Perimeter();
-                }
+                w.Close();
             }
-            Console.WriteLine("The largest perimetr is: {0} ",buff);
-            Console.WriteLine("------------");
-            shapes.Sort();
-            for (int i = 0; i < shapes.Count; i++)
+
+            using (StreamWriter w = new StreamWriter("New.txt"))
             {
-                shapes[i].Print();
+                foreach (var item in PhoneBook)
+                {
+                    if (item.Value[0] == '0')
+                    {
+                        NewPhoneBook[item.Key] = $"+38{item.Value}";
+                        w.Write($"{NewPhoneBook[item.Key]} \n");
+                    }
+                    else if (item.Value[0] == '8')
+                    {
+                        NewPhoneBook[item.Key] = $"+3{item.Value}";
+                        w.Write($"{NewPhoneBook[item.Key]} \n");
+                    }
+                    else if (item.Value[0] == '3')
+                    {
+                        NewPhoneBook[item.Key] = $"+{item.Value}";
+                        w.Write($"{NewPhoneBook[item.Key]} \n");
+                    }
+                }
+                w.Close();
             }
+
+        start:
+            try
+            {
+                Console.Write("Enter the name: ");
+                string name = Console.ReadLine();
+                Console.WriteLine($"{NewPhoneBook[name]}");
+            }
+            catch (Exception)
+            {
+                Console.WriteLine("This name isn't in phone book");
+                goto start;
+            }
+
         }
 
     }
