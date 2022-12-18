@@ -1,24 +1,26 @@
-﻿namespace Homework_8
+﻿using System;
+using System.Collections.Generic;
+using System.Text;
+
+namespace Sytnyk_Illia_s_Homework_8
 {
     public class Square : Shape
     {
-        private int _side;
-
-        public Square(string name, int side) : base(name)
+        double side;
+        public Square(string name, double side) : base(name)
         {
-            _side = side;
+            this.side = side;
         }
-
-        public override void Area()
+        public double Radius { get { return side; } }
+        public override double Area()
         {
-            base.Area1 = _side * _side;
-            Console.WriteLine($"Area of square is : {base.Area1}");
+            double area = Math.Pow(side, 2);
+            return area;
         }
-
-        public override void Perimeter()
+        public override double Perimeter()
         {
-            base.Perimeter1 = 4 * _side;
-            Console.WriteLine($"Perimeter of square is : {base.Perimeter1}");
+            double perimeter = 4* side;
+            return perimeter;
         }
     }
 }
