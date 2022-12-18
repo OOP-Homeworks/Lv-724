@@ -1,24 +1,24 @@
-﻿namespace Homework_8
+﻿using System;
+using System.Collections.Generic;
+using System.Text;
+
+namespace Sytnyk_Illia_s_Homework_8
 {
     public class Circle : Shape
     {
-        private int _radius;
-
-        public Circle(string name, int radius) : base(name)
+        double radius;
+        public Circle(string name, double radius) : base(name)
         {
-            _radius = radius;
+            this.radius = radius;
         }
-
-        public override void Area()
+        public double Radius { get { return radius; } }
+        public override double Area()
         {
-            base.Area1 = Math.PI * _radius * _radius;
-            Console.WriteLine($"Area of circle is: {base.Area1}");
+            return Math.PI * Math.Pow(radius, 2);
         }
-
-        public override void Perimeter()
+        public override double Perimeter()
         {
-            base.Perimeter1 = (decimal)(2 * Math.PI * _radius);
-            Console.WriteLine($"Perimeter of circle is : {base.Perimeter1}");
+            return 2 * Math.PI * radius;
         }
     }
 }
