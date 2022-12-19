@@ -1,29 +1,25 @@
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
 
-﻿using Lesson_7.BLL;
-
-namespace Lesson_7_Homework.CLI
+namespace FedusVladuslav_HW_10
 {
     internal class Program
     {
-        static async Task Main(string[] args)
+        static void Main(string[] args)
         {
-            const string phoneBookLocation = @"C:\Users\mlesy\temp\Lv-724\Lesia_Maiatsaka\Lesson_7\Lesson_7_Homework.CLI\Phones.txt";
-            const string copyPath = @"C:\Users\mlesy\temp\Lv-724\Lesia_Maiatsaka\Lesson_7\Lesson_7_Homework.CLI\Phones2.txt";
+            List<Triangle> shapes = new List<Triangle>();
+            shapes.Add(new Triangle("Triangle 1", new Point(1, 2), new Point(5, 3), new Point(18, 7)));
+            shapes.Add(new Triangle("Triangle 2", new Point(2, 3), new Point(8, 4), new Point(9, 2)));
+            shapes.Add(new Triangle("Triangle 3", new Point(10, 1), new Point(5, 7), new Point(12, 3)));
 
-            var phoneBook = new TextPhoneBook(new StreamReader(phoneBookLocation), new StreamWriter(copyPath));
-            phoneBook.CreatePhoneBookEntries(await phoneBook.ReadFromPhoneBookAsync());
-            await phoneBook.CopyPhoneBookAsynk();
-
-            Console.WriteLine("name: ");
-            var userInput = Console.ReadLine();
-
-            foreach (var item in phoneBook.Entries.Where(e => e.Key.Contains(userInput, StringComparison.OrdinalIgnoreCase)))
+            foreach (Triangle triangle in shapes)
             {
-                Console.WriteLine($"{item.Key} has number +3{item.Value}");
-            }
-
-            Console.ReadKey();
+                triangle.Print();
+            }  
         }
-        
     }
 }
+
