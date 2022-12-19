@@ -1,54 +1,34 @@
-
 ﻿using System;
 using System.Collections.Generic;
 using System.Text;
 
-namespace HM5
+namespace _5HW_Cherniak
 {
-    class Builder : IDeveloper, IComparable
-    {
-        string tool;
-        public string Tool
-        {
-            set { tool = value; }
-            get { return tool; }
-        }
-
-        public Builder(string tool)
-        {
-            this.tool = tool;
-        }
-        public static Builder Input(int i)
-        {
-            Console.WriteLine($"{i + 1} enter your tool");
-            string tool = Console.ReadLine();
-            Builder builder = new Builder(tool);
-            return builder;
-        }
-        public void Create()
-        {
-            Console.WriteLine($"The tool is {this.tool}");
-        }
-        public void Destroy()
-        {
-            if (tool != "hammer")
-            {
-                Console.WriteLine("your language isn't c# ");
-            }
-            else
-            {
-                Console.WriteLine("youк tool isn't hammer");
-            }
-        }
-        public Builder() { }
-        public int CompareTo(object o)
-        {
-            Builder b = o as Builder;
-            if (b != null)
-                return this.Tool.CompareTo(b.Tool);
-            else
-                throw new ArgumentException("Object is not a developer");
-        }
-    }
+	internal class Builder : IDeveloper, IComparable<IDeveloper>
+	{
+		private string name;
+		private string tool;
+		public string Tool
+		{
+			get { return tool; }	
+			set { tool = value; }	
+		}
+		public Builder(string name, string tool)
+		{
+			this.name = name;
+			this.tool = tool;
+		}	
+		public void Create()
+		{
+			Console.WriteLine($"Builder {name} creates taks with {tool} help");
+		}
+		public void Destroy()
+		{
+			Console.WriteLine($"Builder {name} destroys task with {tool} help");
+		}
+		int IComparable<IDeveloper>.CompareTo(IDeveloper different)
+		{
+			return String.Compare(this.Tool, different.Tool);
+		}
+	}
 }
-

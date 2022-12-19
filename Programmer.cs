@@ -1,32 +1,34 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
 using System.Text;
-using System.Threading.Tasks;
 
-
-namespace Homework5
+namespace _5HW_Cherniak
 {
-    public class Programmer : IDeveloper
-    {
-        public string _language;
-        public string Tool { get { return _language; } set { _language = value; } }
-        public int CompareTo(IDeveloper? other)
-        {
-            if (other == null) return 1;
-            {
-                return Tool.CompareTo(other.Tool);
-            }
-        }
-
-        public string Create()
-        {
-            return $"Create programer {_language}";
-        }
-
-        public string Destroy()
-        {
-            return $"Destroy programer";
-        }
-    }
+	internal class Programmer : IDeveloper, IComparable<IDeveloper>
+	{
+		private string name;
+		private string language;
+		public string Tool
+		{
+			get { return language; }
+			set { language = value; }
+		}
+		public Programmer(string name, string language)
+		{
+			this.name = name;
+			this.language = language;
+		}	
+		public void Create()
+		{
+			Console.WriteLine($"Programmer {name} creates task with {language} help ");
+		}
+		public void Destroy()
+		{
+			Console.WriteLine($"Programmer {name} destroys task with {language} help ");
+		}
+		int IComparable<IDeveloper>.CompareTo(IDeveloper different)
+		{
+			return String.Compare(this.Tool, different.Tool);
+		}
+	}
 }
