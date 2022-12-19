@@ -27,4 +27,3 @@ namespace Sytnyk_Illia_s_Homework_8
                 throw new Exception("Unable to compare two objects");
         }
     }
-}
