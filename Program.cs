@@ -1,46 +1,52 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.IO;
+using System.Linq;
 
-
-namespace _4HW_Cherniak
+namespace HM8.Dima
 {
-	class Program
-	{
-		static void Main(string[] args)
-		{
-			var persons = new Person[6];
-			for (int i = 0; i < persons.Length; i++)
-			{
-				persons[i] = Person.Input(i);
-			}
-			for(int i = 0; i < persons.Length; i++)
-			{
-				var age = persons[i].Age();
-				Console.WriteLine($"{persons[i].Name} is {age} years old");	
-			}
-			for (int i = 0; i < persons.Length; i++)
-			{
-				int age = persons[i].Age();
-				persons[i].ChangeName(age);
-			}
-			for (int i = 0; i < persons.Length; i++)
-			{
-				persons[i].Output();
-			}
-			for (int i = 0; i < persons.Length; i++)
-			{
-				for	(int j = i + 1; j < persons.Length; j++)
-				{
-					if (persons[i] == persons[j])
-					{
-						Console.WriteLine($"{persons[i].Name} and {persons[j].Name} are equals");
-					}
-				}
-			}
-			Console.ReadKey();
-		}
-	}
-}
+    class Program
+    {
+        static void Main(string[] args)
+        {
+            List<Shape> shape = new List<Shape>();
 
-   
+            for (int i = 0; i < 10; i++)
+            {
+                Console.WriteLine($"Enter the {i} shape (circle or square)");
+                string shapeInput = Console.ReadLine();
+                if (shapeInput == "circle")
+                {
+                    Console.WriteLine("Enter the circle's name");
+                    string circelName = Console.ReadLine();
+                    Console.WriteLine("Enter the radius");
+                    int radius = Convert.ToInt32(Console.ReadLine());
+                    shape.Add(new Circle(circelName, radius));
+                }
+                else if (shapeInput == "square")
+                {
+                    Console.WriteLine("Enter the square's name");
+                    string squareName = Console.ReadLine();
+                    Console.WriteLine("Enter the side");
+                    int side = Convert.ToInt32(Console.ReadLine());
+                    shape.Add(new Square(squareName, side));
+                }
+                else
+                {
+                    Console.WriteLine("You made mistake");
+                }
+                foreach (Shape c in shape)
+                {
+                    Console.WriteLine($"{c.Name}");
+                    c.Area();
+                    c.Perimeter();
+                }
+                shape.Sort();
+
+                foreach (Shape s in shape)
+                {
+                    Console.WriteLine($"{shape[i].Name}, {shape[i].Area()}");
+                }
+            }
+        }
+    }
+}

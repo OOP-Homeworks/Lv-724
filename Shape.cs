@@ -1,23 +1,41 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
 
-namespace Homework_8
+
+namespace HM8.Dima
 {
-    public abstract class Shape 
+    public abstract class Shape : IComparable<Shape>
     {
-        private string _name;
-        public string Name { get { return _name; } }
-
+        string name;
         public Shape(string name)
         {
-            _name = name;
+            this.name = name;
+        }
+        virtual public string Name
+        {
+            get { return name; }
         }
 
-        public abstract void Area();
-        public abstract void Perimeter();
+        public object Perimeter1 { get; internal set; }
+        public object Area1 { get; internal set; }
 
-        public decimal Perimeter1 { get; set; }
-        public double Area1 { get; set; }
+        public abstract double Area();
+        public abstract double Perimeter();
+        public virtual int CompareTo(Shape secondShape)
+        {
+            Shape shapeOne = secondShape as Shape;
+            if (shapeOne == null)
+            {
+                throw new ArgumentException("That's not a shape");
+            }
+            else
+            {
+                return this.Area().CompareTo(secondShape.Area());
+            }
 
+        }
     }
 }
-
