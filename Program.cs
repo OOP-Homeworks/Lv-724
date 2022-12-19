@@ -1,46 +1,41 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.IO;
+using System.Linq;
 
-
-namespace _4HW_Cherniak
+namespace HW9_Cherniak
 {
-	class Program
+	internal class Program
 	{
 		static void Main(string[] args)
 		{
-			var persons = new Person[6];
-			for (int i = 0; i < persons.Length; i++)
+			string path = @"C:\Users\Настася\Desktop\SoftServe Homework\task.txt";
+			string[] task = File.ReadAllLines(@"C:\Users\Настася\Desktop\SoftServe Homework\task.txt");
+			using (StreamReader sw = new StreamReader(path, false))
 			{
-				persons[i] = Person.Input(i);
-			}
-			for(int i = 0; i < persons.Length; i++)
-			{
-				var age = persons[i].Age();
-				Console.WriteLine($"{persons[i].Name} is {age} years old");	
-			}
-			for (int i = 0; i < persons.Length; i++)
-			{
-				int age = persons[i].Age();
-				persons[i].ChangeName(age);
-			}
-			for (int i = 0; i < persons.Length; i++)
-			{
-				persons[i].Output();
-			}
-			for (int i = 0; i < persons.Length; i++)
-			{
-				for	(int j = i + 1; j < persons.Length; j++)
+				int result = 0;
+				foreach (string i in task)
 				{
-					if (persons[i] == persons[j])
-					{
-						Console.WriteLine($"{persons[i].Name} and {persons[j].Name} are equals");
-					}
+					result += i.Length;
+				}
+				Console.WriteLine($"Amount of symbols in every rows: {result} ");
+				Console.WriteLine("");
+
+				var Long = task.OrderByDescending(a => a.Length).First().ToString();
+				var Short = task.OrderBy(a => a.Length).First().ToString();
+
+				Console.WriteLine($"Longest row is :'{Long}', ");
+				Console.WriteLine($"Shortest row is :'{Short}', ");
+				Console.WriteLine("");
+
+				Console.WriteLine("The row that contains of word \"var\":");
+				var row = from b in task
+						   where b.Contains("var")
+						   select b;
+				foreach (var item in row)
+				{
+					Console.WriteLine(item);
 				}
 			}
-			Console.ReadKey();
 		}
 	}
 }
-
-   
