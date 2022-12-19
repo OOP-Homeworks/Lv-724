@@ -2,29 +2,25 @@
 using System.Collections.Generic;
 using System.Text;
 
-namespace HW8_Cherniak
+
+namespace Sytnyk_Illia_s_Homework_8
 {
-	internal class Square : Shape
-	{
-		private double side;
-		public double Side { get { return side; } }
-
-		public Square(string name, double side) : base(name)
-		{
-			this.side = side;
-		}
-
-		public override double Area()
-		{
-			return (side * side);
-		}
-		public override double Perimeter()
-		{
-			return 4 * side;
-		}
-		public override void Print()
-		{
-			Console.WriteLine($"Name: {name}, Area: {Area()}, Perimetr: {Perimeter()}");
-		}
-	}
-}
+    public class Square : Shape
+    {
+        double side;
+        public Square(string name, double side) : base(name)
+        {
+            this.side = side;
+        }
+        public double Radius { get { return side; } }
+        public override double Area()
+        {
+            double area = Math.Pow(side, 2);
+            return area;
+        }
+        public override double Perimeter()
+        {
+            double perimeter = 4* side;
+            return perimeter;
+        }
+    }

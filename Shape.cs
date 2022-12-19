@@ -1,31 +1,29 @@
 ﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Text;
 
-namespace HW8_Cherniak
+namespace Sytnyk_Illia_s_Homework_8
 {
-	public abstract class Shape : IComparable<Shape>	
-	{
-		public string name;
-		public string Name
-		{
-			get { return name; }
-		}
-
-		public Shape(string name)
-		{
-			this.name = name;
-		}
-
-		public abstract double Area();
-		public abstract double Perimeter();
-
-		public int CompareTo(Shape different)
-		{
-			if (different == null) return 1;
-			else
-				return this.Area().CompareTo(different.Area());
-		}
-		public abstract void Print();
-	}
-}
+    public abstract class Shape : IComparable<Shape>
+    {
+        public string name;
+        public string Name { get; set; }
+        public Shape(string name)
+        {
+            Name = name;
+        }
+        public abstract double Area();
+        public abstract double Perimeter();
+        public int CompareTo(Shape p)
+        {
+            Shape c = p as Circle;
+            Shape s = p as Square;
+            if (c != null)
+                return this.Area().CompareTo(c.Area());
+            else if (s != null)
+                return this.Area().CompareTo(s.Area());
+            else
+                throw new Exception("Unable to compare two objects");
+        }
+    }
