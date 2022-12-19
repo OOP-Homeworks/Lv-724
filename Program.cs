@@ -1,107 +1,95 @@
-﻿using System;
+﻿
+using System;
 using System.Collections.Generic;
-using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-namespace Homework8
+
+namespace Homework7
 {
     class Program
     {
         static void Main(string[] args)
         {
-
-
-            List<Shape> shapes = new List<Shape>();
-
-            bool ifTrue = true;
-
-
-            for (int i = 0; i < 2; i++)
+            Dictionary<string, string> PhoneBook = new Dictionary<string, string>(9);
+            FileInfo phonesFile = new FileInfo(@"C:\Users\Dell\Desktop\phones.txt");
+            using (StreamReader sr = new StreamReader(phonesFile.FullName, System.Text.Encoding.Default))
             {
-            start:
-                Console.Write("Enter the name of shapes (circle or square): ");
-                string nameOfShapes = Console.ReadLine();
-                if (nameOfShapes == "circle")
+                string[] str = new string[9];
+                string[] Name = new string[9];
+                string[] Number = new string[9];
+                string temp = "";
+                for (int i = 0; i < 9; i++)
                 {
-                startR:
-                    try
+                    str[i] = File.ReadLines(@"C:\Users\Dell\Desktop\phones.txt").Skip(i).First();
+                    temp = str[i];
+                    for (int k = 0; k < temp.Length; k++)
                     {
-                        Console.Write("Enter the radius: ");
-                        double radiusCircle = Convert.ToDouble(Console.ReadLine());
-                        if (radiusCircle <= 0)
+                        if (char.IsLetter(temp[k]))
                         {
-                            goto startR;
+                            Name[i] = Name[i] + temp[k].ToString();
                         }
-
-                        shapes.Add(new Circle("circle", radiusCircle));
-
-                        ifTrue = false;
-                    }
-                    catch
-                    {
-                        Console.WriteLine("Invalid number!");
-                        goto startR;
-                    }
-
-                }
-                if (nameOfShapes == "square")
-                {
-                startS:
-                    try
-                    {
-                        Console.Write("Enter the side: ");
-                        double sideSquare = Convert.ToDouble(Console.ReadLine());
-                        if (sideSquare <= 0)
+                        else if (temp[k] == ' ')
                         {
-                            goto startS;
+                            continue;
                         }
-
-                        shapes.Add(new Square("square", sideSquare));
-                        ifTrue = false;
+                        else
+                        {
+                            Number[i] = Number[i] + temp[k];
+                        }
                     }
-                    catch
+                    //Console.WriteLine(Number[i] + " " + Name[i]);
+                    PhoneBook.Add(Name[i], Number[i]);
+                }
+            }
+            Console.Write("Enter the name to find a phone number:");
+            string name = Convert.ToString(Console.ReadLine());
+            bool found = true;
+            foreach (KeyValuePair<string, string> keyValue in PhoneBook)
+            {
+                if (keyValue.Key == name)
+                {
+                    Console.WriteLine($"Name = {keyValue.Key} Phone number: {keyValue.Value}");
+                    found = true;
+                }
+            }
+            if (!found)
+            {
+                Console.WriteLine("Name is not found");
+            }
+
+            string writePath = @"C:\Users\Dell\Desktop\Phones1.txt";
+            using (StreamWriter writer = new(writePath, true, System.Text.Encoding.Default))
+            {
+                foreach (KeyValuePair<string, string> keyValue in PhoneBook)
+                {
+                    writer.WriteLine(keyValue.Value);
+                }
+            }
+
+            string writePath1 = @"C:\Users\Dell\Desktop\New.txt";
+            try
+            {
+                using (StreamWriter writer = new StreamWriter(writePath1, false, System.Text.Encoding.Default))
+                {
+                    foreach (KeyValuePair<string, string> keyValue in PhoneBook)
                     {
-                        Console.WriteLine("Invalid number!");
-                        goto startS;
+                        if (!keyValue.Key.StartsWith("+3"))
+                        {
+                            writer.WriteLine("+3" + keyValue.Key + " " + keyValue.Value);
+                        }
+                        else
+                        {
+                            writer.WriteLine(keyValue.Key + " " + keyValue.Value);
+                        }
                     }
-
-                }
-                if (ifTrue)
-                {
-                    Console.WriteLine("There isn't such shapes!");
-                    goto start;
                 }
             }
-
-            double buff=0;
-
-            for (int i = 0; i < shapes.Count; i++)
+            catch (Exception e)
             {
-                shapes[i].Print();
+                Console.WriteLine(e.Message);
             }
-            Console.WriteLine("------------");
-            for (int i = 1; i < shapes.Count; i++)
-            {
 
-                if (shapes[i].Perimeter() > shapes[i - 1].Perimeter())
-                {
-                    buff = shapes[i].Perimeter();
-
-
-                }
-                else
-                {
-                    buff = shapes[0].Perimeter();
-                }
-            }
-            Console.WriteLine("The largest perimetr is: {0} ",buff);
-            Console.WriteLine("------------");
-            shapes.Sort();
-            for (int i = 0; i < shapes.Count; i++)
-            {
-                shapes[i].Print();
-            }
         }
 
     }
