@@ -1,46 +1,15 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.IO;
 
-
-namespace _4HW_Cherniak
+namespace HM10.Dima
 {
-	class Program
-	{
-		static void Main(string[] args)
-		{
-			var persons = new Person[6];
-			for (int i = 0; i < persons.Length; i++)
-			{
-				persons[i] = Person.Input(i);
-			}
-			for(int i = 0; i < persons.Length; i++)
-			{
-				var age = persons[i].Age();
-				Console.WriteLine($"{persons[i].Name} is {age} years old");	
-			}
-			for (int i = 0; i < persons.Length; i++)
-			{
-				int age = persons[i].Age();
-				persons[i].ChangeName(age);
-			}
-			for (int i = 0; i < persons.Length; i++)
-			{
-				persons[i].Output();
-			}
-			for (int i = 0; i < persons.Length; i++)
-			{
-				for	(int j = i + 1; j < persons.Length; j++)
-				{
-					if (persons[i] == persons[j])
-					{
-						Console.WriteLine($"{persons[i].Name} and {persons[j].Name} are equals");
-					}
-				}
-			}
-			Console.ReadKey();
-		}
-	}
+    class Program
+    {
+        static void Main(string[] args)
+        {
+            List<Triangle> triangles = new List<Triangle>();
+            triangles.Add(new Triangle("Triangle 1", new Point(1, 2), new Point(3, 4), new Point(5, 6)));
+            triangles.Add(new Triangle("Triangle 2", new Point(7, 8), new Point(9, 10), new Point(11, 12)));
+        }
+    }
 }
-
-   
