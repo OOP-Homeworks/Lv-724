@@ -1,23 +1,31 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
+using System.Text;
 
-namespace Homework_8
+namespace HW8_Cherniak
 {
-    public abstract class Shape 
-    {
-        private string _name;
-        public string Name { get { return _name; } }
+	public abstract class Shape : IComparable<Shape>	
+	{
+		public string name;
+		public string Name
+		{
+			get { return name; }
+		}
 
-        public Shape(string name)
-        {
-            _name = name;
-        }
+		public Shape(string name)
+		{
+			this.name = name;
+		}
 
-        public abstract void Area();
-        public abstract void Perimeter();
+		public abstract double Area();
+		public abstract double Perimeter();
 
-        public decimal Perimeter1 { get; set; }
-        public double Area1 { get; set; }
-
-    }
+		public int CompareTo(Shape different)
+		{
+			if (different == null) return 1;
+			else
+				return this.Area().CompareTo(different.Area());
+		}
+		public abstract void Print();
+	}
 }
-

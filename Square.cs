@@ -1,24 +1,30 @@
-﻿namespace Homework_8
+﻿using System;
+using System.Collections.Generic;
+using System.Text;
+
+namespace HW8_Cherniak
 {
-    public class Square : Shape
-    {
-        private int _side;
+	internal class Square : Shape
+	{
+		private double side;
+		public double Side { get { return side; } }
 
-        public Square(string name, int side) : base(name)
-        {
-            _side = side;
-        }
+		public Square(string name, double side) : base(name)
+		{
+			this.side = side;
+		}
 
-        public override void Area()
-        {
-            base.Area1 = _side * _side;
-            Console.WriteLine($"Area of square is : {base.Area1}");
-        }
-
-        public override void Perimeter()
-        {
-            base.Perimeter1 = 4 * _side;
-            Console.WriteLine($"Perimeter of square is : {base.Perimeter1}");
-        }
-    }
+		public override double Area()
+		{
+			return (side * side);
+		}
+		public override double Perimeter()
+		{
+			return 4 * side;
+		}
+		public override void Print()
+		{
+			Console.WriteLine($"Name: {name}, Area: {Area()}, Perimetr: {Perimeter()}");
+		}
+	}
 }
