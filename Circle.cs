@@ -1,24 +1,30 @@
-﻿namespace Homework_8
+﻿using System;
+using System.Collections.Generic;
+using System.Text;
+
+namespace HW8_Cherniak
 {
-    public class Circle : Shape
-    {
-        private int _radius;
+	public class Circle : Shape
+	{
+		private double radius;
+		public double Radius { get { return radius; } }
 
-        public Circle(string name, int radius) : base(name)
-        {
-            _radius = radius;
-        }
+		public Circle(string name, double radius) : base(name)
+		{
+			this.radius = radius;
+		}
 
-        public override void Area()
-        {
-            base.Area1 = Math.PI * _radius * _radius;
-            Console.WriteLine($"Area of circle is: {base.Area1}");
-        }
-
-        public override void Perimeter()
-        {
-            base.Perimeter1 = (decimal)(2 * Math.PI * _radius);
-            Console.WriteLine($"Perimeter of circle is : {base.Perimeter1}");
-        }
-    }
+		public override double Area()
+		{
+			return Math.PI * (radius * radius);
+		}
+		public override double Perimeter()
+		{
+			return Math.PI * 2 * radius;
+		}
+		public override void Print()
+		{
+			Console.WriteLine($"Name: {name}, Area: {Area()}, Perimetr: {Perimeter()}");
+		}
+	}
 }

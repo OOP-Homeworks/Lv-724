@@ -1,46 +1,54 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.IO;
+using System.Linq;
 
-
-namespace _4HW_Cherniak
+namespace HW8_Cherniak
 {
-	class Program
+	internal class Program
 	{
 		static void Main(string[] args)
 		{
-			var persons = new Person[6];
-			for (int i = 0; i < persons.Length; i++)
+			List<Shape> shapeList = new List<Shape>();
+
+			for (int i = 0; i < 2; i++)
 			{
-				persons[i] = Person.Input(i);
-			}
-			for(int i = 0; i < persons.Length; i++)
-			{
-				var age = persons[i].Age();
-				Console.WriteLine($"{persons[i].Name} is {age} years old");	
-			}
-			for (int i = 0; i < persons.Length; i++)
-			{
-				int age = persons[i].Age();
-				persons[i].ChangeName(age);
-			}
-			for (int i = 0; i < persons.Length; i++)
-			{
-				persons[i].Output();
-			}
-			for (int i = 0; i < persons.Length; i++)
-			{
-				for	(int j = i + 1; j < persons.Length; j++)
+				Console.WriteLine("Input circle or square : ");
+				string input = Console.ReadLine();
+				if (input == "circle")
 				{
-					if (persons[i] == persons[j])
-					{
-						Console.WriteLine($"{persons[i].Name} and {persons[j].Name} are equals");
-					}
+					Console.WriteLine("Input the name of circle : ");
+					string circleName = Console.ReadLine();
+					Console.WriteLine("Input radius : ");
+					int circleRadius = Convert.ToInt32(Console.ReadLine());
+
+					shapeList.Add(new Circle(circleName, circleRadius));
+				}
+				else if (input == "square")
+				{
+					Console.WriteLine("Input the name of Square : ");
+					string squareName = Console.ReadLine();
+					Console.WriteLine("Input the side of squere : ");
+					int squareSide = Convert.ToInt32(Console.ReadLine());
+					shapeList.Add(new Square(squareName, squareSide));
+				}
+				else
+				{
+					Console.WriteLine("Mistake, please try again");
+					i--;
+				}
+				foreach (Shape value in shapeList)
+				{
+					value.Print();
+				}
+				var result = shapeList.FirstOrDefault(s => s.Perimeter() == shapeList.Max(s1 => s1.Perimeter()));
+				Console.WriteLine("Shape {0} have max perimeter: {1:F2}", result.Name, result.Perimeter());
+				Console.WriteLine("Sorting list by area:");
+				shapeList.Sort();
+				foreach (Shape value in shapeList)
+				{
+					value.Print();
 				}
 			}
-			Console.ReadKey();
 		}
 	}
 }
-
-   
