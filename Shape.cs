@@ -1,23 +1,21 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
+using System.Text;
 
-namespace Homework_8
+namespace HM9.Dima
 {
-    public abstract class Shape 
+    abstract class Shape
     {
-        private string _name;
-        public string Name { get { return _name; } }
-
+        string name;
         public Shape(string name)
         {
-            _name = name;
+            this.name = name;
         }
-
-        public abstract void Area();
-        public abstract void Perimeter();
-
-        public decimal Perimeter1 { get; set; }
-        public double Area1 { get; set; }
-
+        virtual public string Name
+        {
+            get { return name; }
+        }
+        public abstract double Area();
+        public abstract double Perimeter();
     }
-}
-
+ }

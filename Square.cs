@@ -1,24 +1,23 @@
-﻿namespace Homework_8
-{
-    public class Square : Shape
-    {
-        private int _side;
+﻿using System;
+using System.Collections.Generic;
+using System.Text;
 
+namespace HM9.Dima
+{
+    class Square: Shape
+    {
+        int side;
         public Square(string name, int side) : base(name)
         {
-            _side = side;
+            this.side = side;
         }
-
-        public override void Area()
+        public override double Area()
         {
-            base.Area1 = _side * _side;
-            Console.WriteLine($"Area of square is : {base.Area1}");
+            return Math.Pow(side, 2);
         }
-
-        public override void Perimeter()
+        public override double Perimeter()
         {
-            base.Perimeter1 = 4 * _side;
-            Console.WriteLine($"Perimeter of square is : {base.Perimeter1}");
+            return 4 * side;
         }
     }
 }

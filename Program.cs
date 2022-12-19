@@ -1,46 +1,39 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.IO;
+using System.Text.RegularExpressions;
 
 
-namespace _4HW_Cherniak
+namespace HM9.Dima
 {
-	class Program
-	{
-		static void Main(string[] args)
-		{
-			var persons = new Person[6];
-			for (int i = 0; i < persons.Length; i++)
-			{
-				persons[i] = Person.Input(i);
-			}
-			for(int i = 0; i < persons.Length; i++)
-			{
-				var age = persons[i].Age();
-				Console.WriteLine($"{persons[i].Name} is {age} years old");	
-			}
-			for (int i = 0; i < persons.Length; i++)
-			{
-				int age = persons[i].Age();
-				persons[i].ChangeName(age);
-			}
-			for (int i = 0; i < persons.Length; i++)
-			{
-				persons[i].Output();
-			}
-			for (int i = 0; i < persons.Length; i++)
-			{
-				for	(int j = i + 1; j < persons.Length; j++)
-				{
-					if (persons[i] == persons[j])
-					{
-						Console.WriteLine($"{persons[i].Name} and {persons[j].Name} are equals");
-					}
-				}
-			}
-			Console.ReadKey();
-		}
-	}
-}
+    class Program
+    {
+        static void Main(string[] args)
+        {
+            List<Shape> shapes = new List<Shape>();
+            shapes.Add(new Circle("one", 6));
+            shapes.Add(new Square("two", 11));
+            shapes.Add(new Square("three", 1));
+            shapes.Add(new Square("four", 15));
+            shapes.Add(new Circle("five", 5));
+            shapes.Add(new Circle("amazing", 9));
 
-   
+            for (int i = 0; i < 6; i++)
+
+                if (shapes[i].Area() > 10 && shapes[i].Area() < 100)
+                {
+                    Console.WriteLine($"(Area) the name is {shapes[i].Name}");
+                }
+            for (int i = 0; i < 6; i++)
+                if (shapes[i].Name.Contains("a"))
+                 {
+                    Console.WriteLine($"(Letter) the name is {shapes[i].Name}");
+                 }
+            for (int i = 0; i < 6; i++)
+                if (shapes[i].Perimeter() < 5)
+                {
+                    Console.WriteLine($"(Perimeter) the name is {shapes[i].Name}");
+                }
+              
+        }
+    }
+}
