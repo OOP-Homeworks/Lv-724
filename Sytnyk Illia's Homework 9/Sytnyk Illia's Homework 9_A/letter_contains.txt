@@ -1,0 +1,3 @@
+Shape name: square_1		 Area: 225,000		 Perimeter: 60,000
+Shape name: square_2		 Area: 1,000		 Perimeter: 4,000
+Shape name: square_3		 Area: 49,000		 Perimeter: 28,000

@@ -1,0 +1,2 @@
+Shape name: сircle_2		 Area: 50,265		 Perimeter: 25,133
+Shape name: square_3		 Area: 49,000		 Perimeter: 28,000
