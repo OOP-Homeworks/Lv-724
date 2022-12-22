@@ -1,29 +1,38 @@
-﻿using System;
-using System.Collections;
+using System;
 using System.Collections.Generic;
 using System.Text;
 
-namespace Sytnyk_Illia_s_Homework_8
+namespace HW9
 {
     public abstract class Shape : IComparable<Shape>
     {
-        public string name;
-        public string Name { get; set; }
+        private string name;
+
+        public string Name {
+            get {
+                return name; 
+            } 
+        }
+
         public Shape(string name)
         {
-            Name = name;
+            this.name = name;
         }
+
         public abstract double Area();
         public abstract double Perimeter();
-        public int CompareTo(Shape p)
+
+        public virtual int CompareTo(Shape secondShape)
         {
-            Shape c = p as Circle;
-            Shape s = p as Square;
-            if (c != null)
-                return this.Area().CompareTo(c.Area());
-            else if (s != null)
-                return this.Area().CompareTo(s.Area());
+            Shape shapeOne = secondShape as Shape;
+            if (shapeOne == null)
+            {
+                throw new ArgumentException("That's not a shape");
+            }
             else
-                throw new Exception("Unable to compare two objects");
+            {
+                return this.Area().CompareTo(secondShape.Area());
+            }
         }
     }
+}
